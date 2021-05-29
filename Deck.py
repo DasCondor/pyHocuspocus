@@ -19,12 +19,13 @@ class Card(object):
 
 
 class Deck(object):
-    suits = {
-        u'\u2660': "black",
-        u'\u2665': "red",
-        u'\u2663': "black",
-        u'\u2666': "red",
-    }
+    #suits = {
+    #    u'\u2660': "black",
+    #    u'\u2665': "red",
+    #    u'\u2663': "black",
+    #    u'\u2666': "red",
+    #}
+    suits = {"Clubs","Spades","Hearts","Diamonds"}
     values = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"]
 
     def __init__(self):

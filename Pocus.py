@@ -34,6 +34,7 @@ class hocuspocus(object):
         self.count_check = 1
         self.start_check = False
         self.cardid = ''
+        self.card_num = 0
         self.confirmed_rownum = 0
         self.rownum = 0
     
@@ -77,7 +78,7 @@ class hocuspocus(object):
         print(f'Row 1: {self.r1}')
         print(f'Row 2: {self.r2}')
         print(f'Row 3: {self.r3}')
-        cardrow = self.return_rowfromcard(today.cardid)
+        cardrow = self.return_rowfromcard(self.cardid)
         print(f'Recommeded: {self.cardid} -- Row {cardrow}')
         print('  Select a row: 1, 2, 3')
         # take input from user
@@ -175,10 +176,12 @@ class hocuspocus(object):
             return int(3)
 
     def select_card(self):
-
-        card_num = random.randint(0,len(self.rows))
-        self.cardid = str(f'{self.rows[card_num]}')
-        return print(f'card: {self.cardid}')
+        self.card_num = random.randint(0,len(self.rows))
+        if self.card_num > 1:
+            self.card_num = self.card_num -1
+        #print(f'card_num: {self.card_num}')
+        self.cardid = str(f'{self.rows[self.card_num]}')
+        return #print(f'card: {self.cardid}')
         
 
     def ask_again(self,skip_to_row:int = 0):
@@ -203,7 +206,7 @@ class hocuspocus(object):
         print(f'Row 1: {self.r1}')
         print(f'Row 2: {self.r2}')
         print(f'Row 3: {self.r3}')
-        cardrow = self.return_rowfromcard(today.cardid)
+        cardrow = self.return_rowfromcard(self.cardid)
         print(f'Recommeded: {self.cardid} -- Row {cardrow}')
         print('  Select a row: 1, 2, 3')
         # take input from user
@@ -213,7 +216,7 @@ class hocuspocus(object):
     def hocuspocus(self,return_info = False):
         if return_info == True:
             if self.rows[10] == self.cardid:
-                return print(f'{self.rows[10]},{self.cardid},Pass')
+                return print(f'{self.rows[10]},{self.cardid},Pass,{self.card_num}')
         os.system('cls')
         print('')
         print('')
@@ -222,28 +225,25 @@ class hocuspocus(object):
             print(f' ---> on point {self.rows[10]} == {self.cardid}  ')
 
 def test_Pocus():
-        today = []
-        today = hocuspocus()
-        a_index = 0
-        b_index = 0
-        c_index = 0
-        today.sort_rows()
-        today.select_card()
-        a_index = today.return_rowfromcard(today.cardid)
-        #print(f'round1: row  {a_index}')
-        today.start_round(skip_to_row=a_index)
-        today.sort_rows()
-        b_index = today.return_rowfromcard(today.cardid)
-        #print(f'round2: row  {b_index}')
-        today.ask_again(skip_to_row=b_index)
-        today.sort_rows()
-        c_index = today.return_rowfromcard(today.cardid)
-        #print(f'round3: row  {c_index}')
-        today.ask_again(skip_to_row=c_index)
-        today.sort_rows()
-        today.hocuspocus(return_info=True)
+    today = []
+    today = hocuspocus()
+    a_index = 0
+    b_index = 0
+    c_index = 0
+    today.sort_rows()
+    today.select_card()
+    a_index = today.return_rowfromcard(today.cardid)
+    today.start_round(skip_to_row=a_index)
+    today.sort_rows()
+    b_index = today.return_rowfromcard(today.cardid)
+    today.ask_again(skip_to_row=b_index)
+    today.sort_rows()
+    c_index = today.return_rowfromcard(today.cardid)
+    today.ask_again(skip_to_row=c_index)
+    today.sort_rows()
+    today.hocuspocus(return_info=True)
 
-if __name__ == '__main__':
+def person_Pocus():
     today = []
     today = hocuspocus()
     today.sort_rows()
@@ -255,5 +255,9 @@ if __name__ == '__main__':
     today.ask_again()
     today.sort_rows()
     today.hocuspocus()
+
+if __name__ == '__main__':
+    person_Pocus()
+    #test_Pocus()
 
 
