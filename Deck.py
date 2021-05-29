@@ -47,7 +47,6 @@ class Deck(object):
 
     def empty_deck(self):
         self.deck = []
-        
 
     def draw_card(self):
         return self.deck.pop()

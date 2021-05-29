@@ -10,15 +10,11 @@ class Row(object):
         self.title = title
 
     def draw(self, deck):
-        # The argument we are passing is a deck created from the deck class and we are withdrawing a card
-        # using the deck method draw_card(). Then we are appending the returned value into the self.row[]
         self.row.append(Deck.draw_card(deck))
-        # returning the instance object and allowing me to draw again
         return self
 
     def return_row(self):
         for card in self.row:
-            # Showing each card the row has
             print(card.show_card())
 
     def return_cards(self):
@@ -81,7 +77,6 @@ class hocuspocus(object):
         cardrow = self.return_rowfromcard(self.cardid)
         print(f'Recommeded: {self.cardid} -- Row {cardrow}')
         print('  Select a row: 1, 2, 3')
-        # take input from user
         input_a = input()
         self.rownum = int(input_a)
 
@@ -179,9 +174,8 @@ class hocuspocus(object):
         self.card_num = random.randint(0,len(self.rows))
         if self.card_num > 1:
             self.card_num = self.card_num -1
-        #print(f'card_num: {self.card_num}')
         self.cardid = str(f'{self.rows[self.card_num]}')
-        return #print(f'card: {self.cardid}')
+        return 
         
 
     def ask_again(self,skip_to_row:int = 0):
