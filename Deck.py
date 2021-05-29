@@ -19,7 +19,7 @@ class Card(object):
 
 
 class Deck(object):
-    suits = {  # keys are unicode symbols for suits
+    suits = {
         u'\u2660': "black",
         u'\u2665': "red",
         u'\u2663': "black",
@@ -29,23 +29,19 @@ class Deck(object):
 
     def __init__(self):
         self.deck = []
-        # Directly with the creation of the object it will build and shuffle the deck
         self.build_deck()
         self.shuffle_cards()
 
     def build_deck(self):
         for suit in self.suits:
             for value in self.values:
-                # Using the Card class to create all the cards and append it to the self.cards[] instance variable
                 self.deck.append(Card(value, suit))
 
     def shuffle_cards(self):
-        # Using the random.shuffle method to the self.cards list
         return random.shuffle(self.deck)
 
     def show_deck(self):
         for card in self.deck:
-            # Using the Card class method show_card to show each card in the deck
             print(card.show_card())
 
     def empty_deck(self):
@@ -53,5 +49,4 @@ class Deck(object):
         
 
     def draw_card(self):
-        # It will draw the last (random) card in the deck and will remove it from self.cards list
         return self.deck.pop()

@@ -28,24 +28,14 @@ class Row(object):
             r_list.append(add)
         return r_list
 
-
-def Results():
-    print('')
-    print('Row - 1')
-    print(f'{Row1.show_row()}')
-    print('')
-    print('Row - 2')
-    print(f'{Row2.show_row()}')
-    print('')
-    print('Row - 3')
-    print(f'{Row3.show_row()}')
-
-
 class hocuspocus(object):
     
     def __init__(self):
         self.count_check = 1
         self.start_check = False
+        self.cardid = ''
+        self.confirmed_rownum = 0
+        self.rownum = 0
     
         # Creating the deck
         f_deck = Deck()
@@ -70,10 +60,12 @@ class hocuspocus(object):
         self.r2 = Row2.return_cards()
         self.r3 = Row3.return_cards()
 
-    def start_round(self):
+    def start_round(self,skip_to_row :int= 0):
         self.start_check = True
+        if skip_to_row >= 1:
+            self.rownum = skip_to_row
+            return
         os.system('cls')
-        print('')
         print('')
         print('')
         print('')
@@ -85,18 +77,17 @@ class hocuspocus(object):
         print(f'Row 1: {self.r1}')
         print(f'Row 2: {self.r2}')
         print(f'Row 3: {self.r3}')
+        cardrow = self.return_rowfromcard(today.cardid)
+        print(f'Recommeded: {self.cardid} -- Row {cardrow}')
         print('  Select a row: 1, 2, 3')
         # take input from user
         input_a = input()
         self.rownum = int(input_a)
 
-
     def sort_rows(self):
         ran1 = random.randint(3, 9)
         ran2 = random.randint(3, 9)
         ran3 = random.randint(3, 9)
-        if self.start_check == False:
-            return 1
         self.rows = []
         if self.rownum == 1:
             if ran1 < 7:
@@ -142,25 +133,58 @@ class hocuspocus(object):
                 for cd in self.r3:
                     self.rows.append(cd)
                 for cd in self.r1:
-                    self.rows.append(cd)    
+                    self.rows.append(cd)
+
+        elif self.rownum == 0:
+            for cd in self.r1:
+                self.rows.append(cd)
+            for cd in self.r2:
+                self.rows.append(cd)
+            for cd in self.r3:
+                self.rows.append(cd)
+
         r_row1 = []
         r_row2 = []
         r_row3 = []
         rc = len(self.rows)
         for x in range(0,rc,3):
             r_row1.append(self.rows[x])
-        for x in range(1,rc,3):
-            r_row2.append(self.rows[x])
-        for x in range(2,rc,3):
-            r_row3.append(self.rows[x])
+        for y in range(1,rc,3):
+            r_row2.append(self.rows[y])
+        for z in range(2,rc,3):
+            r_row3.append(self.rows[z])
         self.r1 = r_row1
         self.r2 = r_row2
         self.r3 = r_row3
 
+    def return_cardfromindex(self,number):
+        return str(f'{self.rows[number]}')
 
-    def ask_again(self):
-        if self.start_check == False:
-            return 1
+    def return_rowfromcard(self,card_id):
+        res_r1 = any(ele in card_id for ele in self.r1)
+        res_r2 = any(ele in card_id for ele in self.r2)
+        res_r3 = any(ele in card_id for ele in self.r3)
+        if res_r1 == True:
+            self.confirmed_rownum = 1
+            return int(1)
+        if res_r2 == True:
+            self.confirmed_rownum = 2
+            return int(2)
+        if res_r3 == True:
+            self.confirmed_rownum = 3
+            return int(3)
+
+    def select_card(self):
+
+        card_num = random.randint(0,len(self.rows))
+        self.cardid = str(f'{self.rows[card_num]}')
+        return print(f'card: {self.cardid}')
+        
+
+    def ask_again(self,skip_to_row:int = 0):
+        if skip_to_row >= 1:
+            self.rownum = skip_to_row
+            return 0
         self.count_check = self.count_check + 1
         if self.count_check == 3: 
             final_message = 'and final round'
@@ -179,104 +203,57 @@ class hocuspocus(object):
         print(f'Row 1: {self.r1}')
         print(f'Row 2: {self.r2}')
         print(f'Row 3: {self.r3}')
+        cardrow = self.return_rowfromcard(today.cardid)
+        print(f'Recommeded: {self.cardid} -- Row {cardrow}')
         print('  Select a row: 1, 2, 3')
         # take input from user
         input_a = input()
         self.rownum = int(input_a)
 
-    def hocuspocus(self):
+    def hocuspocus(self,return_info = False):
+        if return_info == True:
+            if self.rows[10] == self.cardid:
+                return print(f'{self.rows[10]},{self.cardid},Pass')
         os.system('cls')
         print('')
         print('')
         print(f'   Hocuspocus - your card was: {self.rows[10]}')
+        if self.rows[10] == self.cardid:
+            print(f' ---> on point {self.rows[10]} == {self.cardid}  ')
 
-'''
-    sr_row1 = []
-    sr_row2 = []
-    sr_row3 = []
-    rc2 = len(rows)
-    for x in range(0,rc2,3):
-        sr_row1.append(rows[x])
-    for x in range(1,rc2,3):
-        sr_row2.append(rows[x])
-    for x in range(2,rc2,3):
-        sr_row3.append(rows[x])
-    print(f'Row 1: {sr_row1}')
-    print(f'Row 2: {sr_row2}')
-    print(f'Row 3: {sr_row3}')
-    print('  Select a row: 1, 2, 3')
-    # take input from user
-    input_b = input()
-    rownum = int(input_b)
-    rows = []
-    if rownum == 1:
-        for cd in sr_row2:
-            rows.append(cd)
-        for cd in sr_row1:
-            rows.append(cd)
-        for cd in sr_row3:
-            rows.append(cd)
-    elif rownum == 2:
-        for cd in sr_row3:
-            rows.append(cd)
-        for cd in r2:
-            rows.append(cd)
-        for cd in sr_row1:
-            rows.append(cd)
-    elif rownum == 3:
-        for cd in sr_row1:
-            rows.append(cd)
-        for cd in sr_row3:
-            rows.append(cd)
-        for cd in sr_row2:
-            rows.append(cd)
-    tr_row1 = []
-    tr_row2 = []
-    tr_row3 = []
-    rc3 = len(rows)
-    for x in range(0,rc3,3):
-        tr_row1.append(rows[x])
-    for x in range(1,rc3,3):
-        tr_row2.append(rows[x])
-    for x in range(2,rc3,3):
-        tr_row3.append(rows[x])
-    print(f'Row 1: {tr_row1}')
-    print(f'Row 2: {tr_row2}')
-    print(f'Row 3: {tr_row3}')
-    print('  Select a row: 1, 2, 3')
-    input_c = input()
-    rownum = 0
-    rownum = int(input_c)
-    rows = []
-    if rownum == 1:
-        for cd in tr_row2:
-            rows.append(cd)
-        for cd in tr_row1:
-            rows.append(cd)
-        for cd in tr_row3:
-            rows.append(cd)
-    elif rownum == 2:
-        for cd in tr_row3:
-            rows.append(cd)
-        for cd in tr_row2:
-            rows.append(cd)
-        for cd in tr_row1:
-            rows.append(cd)
-    elif rownum == 3:
-        for cd in tr_row1:
-            rows.append(cd)
-        for cd in tr_row3:
-            rows.append(cd)
-        for cd in tr_row2:
-            rows.append(cd)
+def test_Pocus():
+        today = []
+        today = hocuspocus()
+        a_index = 0
+        b_index = 0
+        c_index = 0
+        today.sort_rows()
+        today.select_card()
+        a_index = today.return_rowfromcard(today.cardid)
+        #print(f'round1: row  {a_index}')
+        today.start_round(skip_to_row=a_index)
+        today.sort_rows()
+        b_index = today.return_rowfromcard(today.cardid)
+        #print(f'round2: row  {b_index}')
+        today.ask_again(skip_to_row=b_index)
+        today.sort_rows()
+        c_index = today.return_rowfromcard(today.cardid)
+        #print(f'round3: row  {c_index}')
+        today.ask_again(skip_to_row=c_index)
+        today.sort_rows()
+        today.hocuspocus(return_info=True)
 
-'''
-today = []
-today = hocuspocus()
-today.start_round()
-today.sort_rows()
-today.ask_again()
-today.sort_rows()
-today.ask_again()
-today.sort_rows()
-today.hocuspocus()
+if __name__ == '__main__':
+    today = []
+    today = hocuspocus()
+    today.sort_rows()
+    today.select_card()
+    today.start_round()
+    today.sort_rows()
+    today.ask_again()
+    today.sort_rows()
+    today.ask_again()
+    today.sort_rows()
+    today.hocuspocus()
+
+
