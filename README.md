@@ -1,7 +1,12 @@
 # pyHocusPocus
 
+### how it works
 
-* usage 
+* Also known as the 21 card trick, this trick uses simple mathematical deduction
+* using a (7x3) grid matrix, after each turn the row that is chosen, that row is now placed in the middle (like a sandwich), between either of the other rows not chosen. Then redealt to rows 1, 2, and 3. After the first round then 2 subsequent rounds, the card will be narrowed down to 33.33% of being 1 of 3 cards; the player tells your there card, you never know it until they tell you.
+* Here is a Great Video from Numberpile over this trick: [21 Card Trick - Numberphile](https://youtu.be/d7dg7gVDWyg) 
+
+## usage 
 ```
 Windows 10
 py .\Pocus.py
