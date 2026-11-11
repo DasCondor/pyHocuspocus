@@ -1,34 +1,63 @@
 # pyHocusPocus
 
-### how it works
+The classic 21-card trick, as a Python terminal program and an animated browser game.
 
-* Also known as the 21 card trick, this trick uses simple mathematical deduction
-* using a (7x3) grid matrix, after each turn the row that is chosen, that row is now placed in the middle (like a sandwich), between either of the other rows not chosen. Then redealt to rows 1, 2, and 3. After the first round then 2 subsequent rounds, the card will be narrowed down to 33.33% of being 1 of 3 cards; the player tells your there card, you never know it until they tell you.
-* Here is a Great Video from Numberpile over this trick: [21 Card Trick - Numberphile](https://youtu.be/d7dg7gVDWyg) 
+**[▶ Play in your browser](https://dascondor.github.io/pyHocuspocus/)**
 
-## usage 
+## How the trick works
+
+Deal 21 cards into three piles of seven. The player silently picks a card and says only which pile it is in. Collect the piles with the chosen one in the middle, deal again, and repeat.
+
+Each round narrows down where the card can be:
+
+| After round | Possible positions in the deck |
+| :---------: | :----------------------------: |
+|      1      |             8 – 14             |
+|      2      |            10 – 12             |
+|      3      |               11               |
+
+After the third round the card is always the 11th in the deck. It is deduction, not a guess.
+
+Numberphile has a great explanation: [21 Card Trick](https://youtu.be/d7dg7gVDWyg).
+
+## Browser game
+
+1. Memorize any one of the 21 cards. Don't click it.
+2. Select **I have my card**.
+3. Choose the pile that contains your card, or press **1**, **2**, or **3**.
+4. Do the same for the next two deals, then watch the reveal.
+
+It is plain HTML, CSS, and JavaScript in [`web/`](web), with no build step. To run it locally, open `web/index.html`, or serve the folder:
+
+```powershell
+py -m http.server 8000 --directory web
 ```
-Windows 10
+
+Then open <http://localhost:8000>.
+
+Changes to `web/` on `main` are deployed to GitHub Pages automatically by [`pages.yml`](.github/workflows/pages.yml).
+
+## Python version
+
+Requires Python 3.
+
+```powershell
 py .\Pocus.py
 ```
-## Demo
-* Screen Shots
-* During Demo Recommended Card was used, but is not required. However the ending will look slightly different since you arent using the card it recommends.
-![image info](./media/demo1.png)
-![image info](./media/demo2.png)
-![image info](./media/demo3.png)
-![image info](./media/demo4.png)
-#### Testing
+
+Remember a card and enter its row number each time you are asked. The program suggests a card to follow, but any card works.
+
+![First round](media/demo1.png)
+![Second round](media/demo2.png)
+![Third round](media/demo3.png)
+![Card reveal](media/demo4.png)
+
+### Testing
+
+Run one automated game, where the program picks a card and checks that the reveal matches:
+
+```powershell
+py -c "from Pocus import test_Pocus; test_Pocus()"
 ```
-comment out line 260 in Pocus.py, person_Pocus()
-and uncomment line 261 test_Pocus()
-Then run test-pocus.ps1
-This will run 1000 tests and verify that all answers are correct.
-```
-* usage
-```
-Powershell
-.\test-pocus.ps1
-CMD
-Powershell -ExecutionPolicy Bypass -file .\test-pocus.ps1
-```
+
+The output is `picked card, revealed card, Pass/Fail, final position`.

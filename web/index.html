@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b19">
+  <meta name="description" content="The classic 21-card trick. Remember a card, point to its pile three times, and watch it appear.">
+  <title>Hocus Pocus · The 21 Card Illusion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="brand"><span>✧</span>Hocus Pocus</div>
+    <nav>
+      <button class="quiet" id="sound" aria-pressed="false">Sound off</button>
+      <button class="quiet" id="help">How to play</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="eyebrow">A little mathematics. A little magic.</div>
+      <h1>A thought, <em>revealed.</em></h1>
+      <p class="subtitle" id="instruction">
+        Choose any card in your mind. Keep it a secret.<br>
+        Tell me only which pile holds it. Three choices. One impossible reveal.
+      </p>
+    </section>
+
+    <div class="steps" aria-label="Game progress">
+      <span id="s1" class="active"><b>1</b> REMEMBER</span>
+      <i class="line"></i>
+      <span id="s2"><b>2</b> FOLLOW</span>
+      <i class="line"></i>
+      <span id="s3"><b>3</b> REVEAL</span>
+    </div>
+
+    <div class="game">
+      <div class="table" id="table">
+        <div class="piles" id="piles"></div>
+        <div class="reveal" id="reveal">
+          <div class="eyebrow">You were thinking of</div>
+          <div class="hero-card" id="hero"></div>
+          <h2 id="answer"></h2>
+          <p>One thought. Twenty-one possibilities.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="below">
+      <div id="status" class="status" aria-live="polite">Take your time. Remember one card below.</div>
+      <button class="primary" id="start">I have my card →</button>
+      <p class="hint" id="hint">No need to click your card. Just remember it.</p>
+      <button class="quiet" id="restart" hidden>Start over</button>
+    </div>
+
+    <footer class="footer">
+      <span>21 CARDS &nbsp; / &nbsp; 3 CHOICES &nbsp; / &nbsp; 1 SECRET</span>
+      <span>Source on <a href="https://github.com/DasCondor/pyHocuspocus" target="_blank" rel="noopener">GitHub ↗</a></span>
+    </footer>
+  </main>
+
+  <dialog class="dialog" id="helpDialog">
+    <h2>The little secret</h2>
+    <ol>
+      <li>Memorize one of the 21 cards. Don't click it.</li>
+      <li>Choose the pile containing that same card.</li>
+      <li>Follow your card through three rounds, then watch the reveal.</li>
+    </ol>
+    <p>If you lose track, use Start over. Keys 1, 2, and 3 select a pile.</p>
+    <details>
+      <summary>How does it work?</summary>
+      <p>
+        The chosen pile always goes between the other two. Dealing the cards into
+        three piles repeatedly narrows the possible positions. After three choices,
+        your card is the 11th card in the collected deck. No camera, tracking, or
+        mind reading needed.
+      </p>
+    </details>
+    <button class="primary" id="closeHelp">Back to the table</button>
+  </dialog>
+
+  <script src="game.js"></script>
+</body>
+</html>
