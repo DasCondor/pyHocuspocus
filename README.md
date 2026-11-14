@@ -130,3 +130,9 @@ pyHocuspocus/
     ├── styles.css
     └── game.js
 ```
+
+## Support development
+
+<img src=".github/dascondor-logo.png" alt="DasCondor logo" width="64" height="64">
+
+If this project was useful to you, you can [buy me a coffee](https://buymeacoffee.com/dascondor) to support future work. Contributions are voluntary.
